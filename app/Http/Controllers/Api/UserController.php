@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Mail\UserRegister;
 use App\User;
 use Illuminate\Foundation\Auth\VerifiesEmails;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller
 {
@@ -45,7 +47,11 @@ class UserController extends Controller
     public function updateEmail(Request $request)
     {
 
-        $request->user()->sendEmailVerificationNotification();
+        $user = Auth::user();
+        $user->activation_key = rand(1000,9999);
+        $user->activation_key_expire = date('Y-m-d H:i:s');
+        $user->save();
+        Mail::to($user)->send(new UserRegister($user));
         return \response(['message'=> 'your resend email sending']);
 
     }

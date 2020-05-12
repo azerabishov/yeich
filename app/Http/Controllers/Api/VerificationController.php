@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
@@ -12,9 +11,12 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+date_default_timezone_set('Asia/Baku');
+
 
 class VerificationController extends Controller
 {
+
 
 
 
@@ -34,9 +36,9 @@ class VerificationController extends Controller
 
     public function verify(Request $request)
     {
-        $activation_expire = Auth::user()->select('activation_key_expire')->first()['activation_key_expire'];
         $user = Auth::user();
-        if(date('Y-m-d H-i-s',time()) > date('Y-m-d H-i-s',strtotime('+1 minutes',strtotime($activation_expire)))){
+
+        if(date('Y-m-d H-i-s',time()) > date('Y-m-d H-i-s',strtotime('+180 minutes',strtotime($user['activation_key_expire'])))){
             return response(['message'=>'Your key expire']);
         }elseif ($user['activation_key']!=$request->key) {
             return response(['message'=>'wrong credential']);

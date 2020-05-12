@@ -11,27 +11,28 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class RestaurantDetailResource extends JsonResource
 {
-    public $helper;
+
     public $restaurantData;
     public function toArray($request)
     {
+        $helper = new Helper();
         $this->restaurantData = $restaurantData = Restaurant::find($this->id);
         return [
             'head' => [
-                'saved_status' => Save::where('id',$this->id)->exists() ? Save::where('id',$this->id)->first('id')->id : '0',
+                'saved_status' => Save::where('restaurant_id',$this->id)->exists() ? Save::where('restaurant_id',$this->restaurant_id)->first('restaurant_id') : '0',
                 'image' => $restaurantData->first('image')->image,
                 'name' => $restaurantData->first('name')->name,
                 'description' => $restaurantData->first('description')->description,
             ],
             'room-mainHall' => [
                 'room' => $restaurantData->first('room')->room,
-                'mainhall' => $restaurantData->first('mainhall')->mainhphpall,
+                'mainhall' => $restaurantData->first('mainhall')->mainhall,
             ],
             'menu' => [
                 'open_menu' => $restaurantData->first()->menu->menu,
-                'open_pdf' => $restaurantData->first()->menu->pdf
+                'open_pdf' => $restaurantData->first()->menu->pdf,
             ],
-            'photos' => $this->helper->insertDataIntoArray(['photo'],Image::where('imageable_id',$this->id)->select('url')->get()->toArray()),
+            'photos' => $helper->insertDataIntoArray(['photo'],Image::where('imageable_id',$this->id)->select('url')->get()->toArray()),
             'about' => [
                 'phone' => $restaurantData->first('phone')->phone,
                 'average_price' => $restaurantData->first('average_price')->average_price,

@@ -11,6 +11,6 @@ $factory->define(Offer::class, function (Faker $faker) {
         'description' => $faker->sentence(4),
         'sub_description' => $faker->sentence(9),
         'offer_hours' => $faker->time().'-'.$faker->time(),
-        'restaurant_id' => random_int(1,20)
+        'restaurant_id' => random_int(1,5)
     ];
 });

@@ -24,14 +24,14 @@ class CollectionController extends Controller
 
 
 
-    public function setCollection(Request $request)
+    public function addCollection(Request $request)
     {
-        if(Auth::check()) {
-            $user = Auth::user();
-            $collection = $user->collections()->create(['name' => $request->name]);
-            return response(['message' => 'your collection created succesfully']);
-        }
-        return response(['message' => 'you are not logged in']);
+//        if(!Auth::check()) {
+//            return response(['message' => 'you are not logged in']);
+//        }
+        $user = Auth::user();
+        $collection = $user->collections()->create(['name' => $request->name]);
+        return response(['message' => 'your collection created succesfully']);
 
     }
 

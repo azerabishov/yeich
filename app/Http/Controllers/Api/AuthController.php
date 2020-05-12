@@ -10,6 +10,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
+date_default_timezone_set('Asia/Baku');
+
+
 class AuthController extends Controller
 {
     public function register(Request $request)
@@ -18,7 +21,7 @@ class AuthController extends Controller
         $validateData = $request->validate([
             'name' => 'required',
             'surname' => 'required',
-            'email' => 'required|email|unique:users',
+            'email' => 'required|email',
             'password' => 'required|confirmed',
             'city' => '',
             'country' => '',
@@ -29,12 +32,12 @@ class AuthController extends Controller
             'bonus' => '',
         ]);
 
-//        if( User::where('email',$request->email)->first() ) {
-//            return response(['message' => 'this email exist. Please use another email']);
-//        }
+        if( User::where('email',$request->email)->first() ) {
+            return response(['message' => 'this email exist. Please use another email']);
+        }
 
         $validateData['activation_key'] = rand(1000,9999);
-        $validateData['activation_key_expire'] = date('Y-m-d H:i:s');
+        $validateData['activation_key_expire'] = date('Y-m-d H:i:s',time());
         $validateData['password'] = bcrypt($validateData['password']);
         $user = User::create($validateData);
         $accessToken = $user->createToken('authToken')->accessToken;

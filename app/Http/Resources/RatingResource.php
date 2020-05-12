@@ -16,8 +16,8 @@ class RatingResource extends JsonResource
      */
     public function toArray($request)
     {
-        $restaurant  = Reservation::where('restaurant_id',$this->id)->select('id')->get();
-        $ratingData  = Rating::whereIn('reservation_id',$restaurant->toArray())->get();
+        $reservation_id  = Reservation::where('restaurant_id',$this->id)->select('id')->get();
+        $ratingData  = Rating::whereIn('reservation_id',$reservation_id->toArray())->get();
         return [
             'head' => [
             'design' => $ratingData->avg('design'),
@@ -32,7 +32,7 @@ class RatingResource extends JsonResource
             'one_star' => $ratingData->where('star',1)->count(),
             ],
 
-            'comments' => (new CommentResource($ratingData))->additional(['id'=>$restaurant->toArray()])
+            'comments' => (new CommentResource($ratingData))->additional(['id'=>$reservation_id->toArray()])
 
         ];
 

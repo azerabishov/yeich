@@ -20,7 +20,8 @@ class CommentResource extends JsonResource
         $array = [];
 
         foreach ($comments as $comment){
-            $temp = ['username' => $comment['user']['name'],
+            $temp = [
+                'username' => $comment['user']['name'],
                 'photo' => $comment['user']['image'],
                 'time' => $comment['created_at'],
                 'star' => $comment['star'],

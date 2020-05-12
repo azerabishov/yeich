@@ -28,6 +28,7 @@ class RestaurantController extends Controller
             $collection = Collection::find($collectionid);
             $restaurantid = $request->id;
             $restaurant = Restaurant::find($restaurantid);
+            echo $restaurant;
             $restaurant->collections()->attach($collectionid);
             $collection->update(['image'=>$restaurant->image]);
             return response(['message'=>'success']);
@@ -44,13 +45,16 @@ class RestaurantController extends Controller
         $restaurantid = $request->id;
         $restaurant = Restaurant::find($restaurantid);
         $restaurant->collections()->detach($collectionid);
+        echo DB::table('collection_restaurant')->count();
         if(DB::table('collection_restaurant')->count()>0){
             $last  = DB::table('collection_restaurant')->latest('id')->first();
             $lastRestaurantID = $last->restaurant_id;
             $lastRestaurant  = Restaurant::find($lastRestaurantID);
             $collection->update(['image'=>$lastRestaurant->image]);
+            return response(['message'=>'your saved removed correctly']);
         }
         $collection->update(['image'=>'salam.png']);
+        return response(['message'=>'your saved removed correctly']);
     }
 
 
@@ -66,9 +70,12 @@ class RestaurantController extends Controller
     {
         $data = Restaurant::query();
 
-        if (request()->has('s')){
+        $request = json_decode($request->getContent());
+        echo $request['s'];
+        if ($request->has('s')){
             $search_key = "%".$request->s."%";
             $data = $data->where('name','like',$search_key);
+            return $data->get();
         }
 
         if(request()->has('categories') or request()->has('features') or  request()->has('cuisen')){

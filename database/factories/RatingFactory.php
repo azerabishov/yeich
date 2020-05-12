@@ -13,7 +13,7 @@ $factory->define(Rating::class, function (Faker $faker) {
         'contingent' => random_int(3,5),
         'star' => random_int(3,5),
         'comment' => $faker->sentence,
-        'reservation_id' =>random_int(1,9),
+        'reservation_id' =>random_int(1,8),
         'user_id' => 1
     ];
 });

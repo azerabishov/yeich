@@ -30,22 +30,17 @@ Route::put('/user/{id}/email', 'Api\UserController@updateEmail')->middleware('au
 Route::put('/user/{id}/password', 'Api\UserController@newPassword')->middleware('auth:api');
 Route::post('user/{id}/image-upload', 'Api\UserController@imageUpload');
 
-//Route::put('/user/{id}', 'Api\UserController@update')->middleware('auth:api');
-//Route::delete('/user/{id}', 'Api\UserController@destroy');
-//Route::get('/user/{id}', 'Api\UserController@show');
-
-
 
 
 //deal with reataurant operations
 Route::get('restaurant/{id}', 'Api\RestaurantController@restaurantDetail');
 Route::get('offers','Api\OfferController@getOffers');
-Route::post('search/restaurant','Api\RestaurantController@filter');
+Route::post('restaurant/filter','Api\RestaurantController@filter');
 Route::get('rating/{id}','Api\RestaurantController@getRatingDetail');
 
 
 //deal wiith collection and save operations
 Route::post('add_collection', 'Api\CollectionController@addCollection')->middleware('auth:api');
 Route::post('collections', 'Api\CollectionController@getCollection')->middleware('auth:api');
-Route::post('save/{id}', 'Api\RestaurantController@setCollection')->middleware('auth:api');
+Route::post('save/{id}', 'Api\RestaurantController@addToCollection')->middleware('auth:api');
 Route::post('save/{id}/remove', 'Api\RestaurantController@removeFromCollection')->middleware('auth:api');

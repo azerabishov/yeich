@@ -13,7 +13,7 @@ $factory->define(Room::class, function (Faker $faker) {
         'number_of_person' => random_int(3,8),
         'deposite' => '50',
         'time_interval' => strval(random_int(-1,5)),
-        'restaurant_id' => 4
+        'restaurant_id' => random_int(1,5)
     ];
 });
 

@@ -15,7 +15,7 @@ $factory->define(Restaurant::class, function (Faker $faker) {
         'payment_method' => 'visa,paypal',
         'dress_code' => 'casual',
         'parking' => 'no',
-        'categories' => '1,2,5,6,8,9',
+        'categories' => ',1,2,5,6,8,9',
         'description' => $faker->sentence,
         'open_time' => ('10:00'),
         'close_time' => ('12:00'),

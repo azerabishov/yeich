@@ -31,7 +31,7 @@ class ReservationController extends Controller
 
 
 
-    public function reservation(Request $request) {
+    public function check(Request $request) {
         $reservation_begin = $request->begin;
         $reservation_end   = $request->finish;
         $number_of_person  = $request->person_count;
@@ -61,7 +61,7 @@ class ReservationController extends Controller
     }
 
 
-    public function makeReservation(Request $request)
+    public function reserv(Request $request)
     {
         $user_id           = $request->user_id;
         $room_id           = $request->room_id;
@@ -84,7 +84,6 @@ class ReservationController extends Controller
         ]);
 
         return response(['message'=>'reservation added']);
-
     }
 
 

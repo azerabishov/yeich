@@ -35,7 +35,7 @@ Route::post('user/{id}/image-upload', 'Api\UserController@imageUpload');
 //deal with reataurant operations
 Route::get('restaurant/{id}', 'Api\RestaurantController@restaurantDetail');
 Route::get('offers','Api\OfferController@getOffers');
-Route::post('restaurant/filter','Api\RestaurantController@filter');
+Route::post('restaurant/filter','Api\FilterController@filter');
 Route::get('rating/{id}','Api\RestaurantController@getRatingDetail');
 Route::post('rooms','Api\RestaurantController@getRooms');
 
@@ -45,7 +45,7 @@ Route::post('add_collection', 'Api\CollectionController@addCollection')->middlew
 Route::post('collections', 'Api\CollectionController@getCollection')->middleware('auth:api');
 Route::post('save/{id}', 'Api\RestaurantController@addToCollection')->middleware('auth:api');
 Route::post('save/{id}/remove', 'Api\RestaurantController@removeFromCollection')->middleware('auth:api');
-Route::post('reserv','Api\ReservationController@reservationIndexPage');
-Route::post('reservet','Api\ReservationController@reservation');
-Route::post('oldu','Api\ReservationController@makeReservation');
+Route::post('reservation','Api\ReservationController@reservationIndexPage');
+Route::post('reservation/check','Api\ReservationController@check');
+Route::post('reservation/reserv','Api\ReservationController@reserv');
 

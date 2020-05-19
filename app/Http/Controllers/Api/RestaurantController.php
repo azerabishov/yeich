@@ -45,7 +45,6 @@ class RestaurantController extends Controller
         $restaurantid = $request->id;
         $restaurant = Restaurant::find($restaurantid);
         $restaurant->collections()->detach($collectionid);
-        echo DB::table('collection_restaurant')->count();
         if(DB::table('collection_restaurant')->count()>0){
             $last  = DB::table('collection_restaurant')->latest('id')->first();
             $lastRestaurantID = $last->restaurant_id;
@@ -66,58 +65,14 @@ class RestaurantController extends Controller
     }
 
 
-    public function filter(Request $request)
-    {
-        $data = Restaurant::query();
 
-        $request = json_decode($request->getContent());
-        echo $request['s'];
-        if ($request->has('s')){
-            $search_key = "%".$request->s."%";
-            $data = $data->where('name','like',$search_key);
-            return $data->get();
-        }
-
-        if(request()->has('categories') or request()->has('features') or  request()->has('cuisen')){
-            $categories =  $request->has('categories') ? explode(',',$request->categories) : [];
-            $features = $request->has('features') ? explode(',',$request->features) : [];
-            $cuisen = $request->has('cuisen') ?  explode(',',$request->cuisen) : [];
-
-            $types = array_merge($categories,$features,$cuisen);
-
-            $types = array_map('intval',$types);
-            $query = "id > 0 and ";
-            foreach ($types as $type){
-                $query .= "categories like '%,$type,%' and ";
-            }
-            $query = rtrim($query,'and ');
-            $data = $data->whereRaw($query);
-        }
-        return $data->get();
-
-    }
-
-
-
-
-
-
-    public function search(Request $request,Restaurant $restaurant)
-    {
-        $search_key = "%".$request->s."%";
-        $restaurantData = $restaurant->where('name','like',$search_key)->get();
-        if ($restaurantData->count()>0){
-            return $restaurantData;
-        }else{
-            return response(['message'=>"data not found"]);
-        }
-    }
 
 
     public function getRatingDetail(Request $request)
     {
         return new RatingResource($request);
     }
+
 
 
     public function getRooms(Request $request)
@@ -129,12 +84,12 @@ class RestaurantController extends Controller
     }
 
 
+
     public function getMainHalls(Request $request)
     {
         $restaurant_id = $request->id;
         $rooms = Restaurant::where('id',$restaurant_id)->with('mainhalls')->get();
         return response(['mainhalls_data'=>$rooms[0]->rooms]);
-
     }
 
 }

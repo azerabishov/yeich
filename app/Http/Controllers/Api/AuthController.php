@@ -53,7 +53,7 @@ class AuthController extends Controller
         ]);
 
         if(!Auth::attempt($loginData)){
-            return response(['message' => 'no']);
+            return response(['message' => 'your credentials is wrong']);
         }
 
         $accessToken = Auth::user()->createToken('access_token')->accessToken;

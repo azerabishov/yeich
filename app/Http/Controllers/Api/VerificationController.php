@@ -16,23 +16,10 @@ date_default_timezone_set('Asia/Baku');
 
 class VerificationController extends Controller
 {
-
-
-
-
     use VerifiesEmails;
-
 
     protected $redirectTo = RouteServiceProvider::HOME;
 
-
-    public function __construct()
-    {
-//        $this->middleware('auth');
-        $this->middleware('auth:api');
-//        $this->middleware('signed')->only('verify');
-//        $this->middleware('throttle:6,1')->only('verify', 'resend');
-    }
 
     public function verify(Request $request)
     {

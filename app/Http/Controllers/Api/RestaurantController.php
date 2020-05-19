@@ -28,7 +28,6 @@ class RestaurantController extends Controller
             $collection = Collection::find($collectionid);
             $restaurantid = $request->id;
             $restaurant = Restaurant::find($restaurantid);
-            echo $restaurant;
             $restaurant->collections()->attach($collectionid);
             $collection->update(['image'=>$restaurant->image]);
             return response(['message'=>'success']);

@@ -46,10 +46,10 @@ class UserController extends Controller
 
     public function updateEmail(Request $request)
     {
-
         $user = Auth::user();
-        $user->activation_key = rand(1000,9999);
+        $user->activation_key        = rand(1000,9999);
         $user->activation_key_expire = date('Y-m-d H:i:s');
+        $user->email                 = $request->email;
         $user->save();
         Mail::to($user)->send(new UserRegister($user));
         return \response(['message'=> 'your resend email sending']);
@@ -57,47 +57,35 @@ class UserController extends Controller
     }
 
 
-    public function newPassword(Request $request,$id)
+    public function newPassword(Request $request)
     {
-        $user = User::find($id);
+        $user = Auth::user();
         $request->validate([
             'old_password' => 'required',
-            'password' => 'required|confirmed'
+            'password'     => 'required|confirmed'
         ]);
 
         if (!Hash::check($request->old_password,$user->password)){
             return response(['message'=> 'your password incoorect']);
         }
         $request['password'] = bcrypt($request['password']);
-
-        $user->update($request->except(['old_password','password_confirmation']));
-
+        $user->update($request->only(['password']));
         return response(['message' => 'your password succesfull updated']);
 
     }
 
-    public function imageUpload(Request $request, User $user, $id)
+    public function imageUpload(Request $request)
     {
-        $user = User::find($id);
+        $user = Auth::user();
         $request->validate([
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
         $imageName = time().'.'.$request->image->extension();
-
         $request->image->move(public_path('images'),$imageName);
-
-
-        $user->update(['photo' => public_path('images').'/'.$imageName]);
-
+        $user->update(['image' => public_path('images').'/'.$imageName]);
         return response(['message' => 'you succesfully upload image']);
 
     }
-
-    public function destroy($id)
-    {
-
-    }
-
 
 
 }

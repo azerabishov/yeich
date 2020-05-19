@@ -37,7 +37,11 @@ class Restaurant extends Model
     public function rooms()
     {
         return $this->hasMany('App\Room');
+    }
 
+    public function reservations()
+    {
+        return $this->hasMany('App\Reservation');
     }
 
 

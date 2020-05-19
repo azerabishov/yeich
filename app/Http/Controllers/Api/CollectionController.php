@@ -12,7 +12,7 @@ class CollectionController extends Controller
 {
 
 
-    public function getCollection()
+    public function get()
     {
         if(Auth::check()) {
             $user = Auth::user();
@@ -24,11 +24,9 @@ class CollectionController extends Controller
 
 
 
-    public function addCollection(Request $request)
+    public function add(Request $request)
     {
-//        if(!Auth::check()) {
-//            return response(['message' => 'you are not logged in']);
-//        }
+
         $user = Auth::user();
         $collection = $user->collections()->create(['name' => $request->name]);
         return response(['message' => 'your collection created succesfully']);

@@ -45,7 +45,6 @@ class AuthController extends Controller
         return response(['token' => $accessToken]);
     }
 
-
     public function login(Request $request)
     {
         $loginData = $request->validate([
@@ -62,4 +61,7 @@ class AuthController extends Controller
         return response(['token' => $accessToken]);
 
     }
+
+
+
 }

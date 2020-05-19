@@ -9,6 +9,5 @@ class Room extends Model
     public function restaurant()
     {
         return $this->belongsTo('App\Restaurant');
-
     }
 }

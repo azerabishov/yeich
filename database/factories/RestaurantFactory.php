@@ -17,8 +17,8 @@ $factory->define(Restaurant::class, function (Faker $faker) {
         'parking' => 'no',
         'categories' => '1,2,5,6,8,9',
         'description' => $faker->sentence,
-        'open_time' => ($faker->time()),
-        'close_time' => ($faker->time()),
+        'open_time' => ('10:00'),
+        'close_time' => ('12:00'),
         'mainhall' => 1,
         'room' => 1,
 

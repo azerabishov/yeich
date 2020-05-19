@@ -119,4 +119,22 @@ class RestaurantController extends Controller
         return new RatingResource($request);
     }
 
+
+    public function getRooms(Request $request)
+    {
+        $restaurant_id = $request->id;
+        $rooms = Restaurant::where('id',$restaurant_id)->with('rooms')->get();
+        return response(['rooms_data'=>$rooms[0]->rooms]);
+
+    }
+
+
+    public function getMainHalls(Request $request)
+    {
+        $restaurant_id = $request->id;
+        $rooms = Restaurant::where('id',$restaurant_id)->with('mainhalls')->get();
+        return response(['mainhalls_data'=>$rooms[0]->rooms]);
+
+    }
+
 }

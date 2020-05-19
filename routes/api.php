@@ -37,6 +37,7 @@ Route::get('restaurant/{id}', 'Api\RestaurantController@restaurantDetail');
 Route::get('offers','Api\OfferController@getOffers');
 Route::post('restaurant/filter','Api\RestaurantController@filter');
 Route::get('rating/{id}','Api\RestaurantController@getRatingDetail');
+Route::post('rooms','Api\RestaurantController@getRooms');
 
 
 //deal wiith collection and save operations
@@ -44,3 +45,7 @@ Route::post('add_collection', 'Api\CollectionController@addCollection')->middlew
 Route::post('collections', 'Api\CollectionController@getCollection')->middleware('auth:api');
 Route::post('save/{id}', 'Api\RestaurantController@addToCollection')->middleware('auth:api');
 Route::post('save/{id}/remove', 'Api\RestaurantController@removeFromCollection')->middleware('auth:api');
+Route::post('reserv','Api\ReservationController@reservationIndexPage');
+Route::post('reservet','Api\ReservationController@reservation');
+Route::post('oldu','Api\ReservationController@makeReservation');
+

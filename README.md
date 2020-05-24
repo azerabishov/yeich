@@ -1,26 +1,12 @@
 # Yeich
 Yeich is Restaurant management software app. This repo is rest api for user based part of application
 
-This part of project  provides users with services such as accessing restaurant information, create collection, instant access to discounts, online booking, online payment((cumming soon)).
+This part of project  provides users with services such as accessing restaurant information, create collection, instant access to discounts, online booking, online payment(cumming soon).
 
 ## Installing Yeich
-Through below command, you can install this project to your computer.
+Through below command, you can clone this project to your computer.
 `git clone https://github.com/azerabishov/yeich.git`
 
-After 
-After clone repo to your comp, you can start using the project by running the following commands:
-
-`composer install`
-
-`npm install`
-
-create copy of `.env.example` file with name `.env` and add your db, mail information to it. 
-
-`php artisan key:generate`
-
-`php artisan migrate`
-
-`php artisan passport:install`
 
 
 ## Usage
